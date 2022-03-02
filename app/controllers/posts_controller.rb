@@ -2,21 +2,21 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.order("created_at DESC")
-    render json: posts
+    render json: @posts
   end
 
   # POST /posts or /posts.json
   def create
     @post = Post.create(post_params)
 
-    render json: post
+    render json: @post
   end
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     @post = Post.find([params[:id]])
     @post.update(post_params)
-    render json: post
+    render json: @post
   end
 
   # DELETE /posts/1 or /posts/1.json
