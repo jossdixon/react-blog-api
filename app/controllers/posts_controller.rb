@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   # GET /posts or /posts.json
   def index
     @posts = Post.order("created_at DESC")
@@ -6,9 +7,10 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
     render json: @post
   end
+
+
 
   # POST /posts or /posts.json
   def create
@@ -32,9 +34,9 @@ class PostsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    # def set_post
-    #   @post = Post.find(params[:id])
-    # end
+    def set_post
+      @post = Post.find(params[:id])
+    end
 
     # Only allow a list of trusted parameters through.
     def post_params
