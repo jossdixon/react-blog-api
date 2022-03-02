@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :new, :create, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
   # GET /posts or /posts.json
   def index
     @posts = Post.order("created_at DESC")
@@ -10,8 +11,6 @@ class PostsController < ApplicationController
     render json: @post
   end
 
-
-
   # POST /posts or /posts.json
   def create
     @post = Post.create(post_params)
@@ -20,14 +19,12 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    @post = Post.find([params[:id]])
     @post.update(post_params)
     render json: @post
   end
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     head :no_content, status: :ok
   end
